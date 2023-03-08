@@ -5,7 +5,6 @@ import imgBack from "../assets/mapbackground.png";
 import bus from "../assets/Bus.png";
 import pushpin from "../assets/Round Pushpin.png";
 import wave from "../assets/Wave.png";
-
 import classes from "../styles/Home.module.css";
 import { useRef } from "react";
 import { useRouter } from "next/router";

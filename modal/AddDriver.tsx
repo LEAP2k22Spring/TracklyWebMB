@@ -2,9 +2,7 @@ import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 const AddDriver = ({ isOpen, setIsOpen }: { isOpen: any; setIsOpen: any }) => {
-  const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
-
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
