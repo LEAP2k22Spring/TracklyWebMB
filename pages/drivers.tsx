@@ -11,7 +11,7 @@ import DriversPro from "@/component/DriversPro";
 import AddIcon from "@mui/icons-material/Add";
 import AddDriver from "@/modal/AddDriver";
 const Drivers = () => {
-  const location = [47.91660524732946, 106.96457125140142];
+  const location:any = [47.91660524732946, 106.96457125140142];
   const [isTrueDriver, setIsTrueDriver] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
