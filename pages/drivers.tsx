@@ -170,7 +170,7 @@ const Drivers = () => {
       )}
       <Box sx={isTrueDriver ? { flex: 3 } : { flex: 4.5 }}>
         <MapContainer
-          center={location}
+          center={{ lat: 47.91660524732946, lng: 106.96457125140142 }}
           zoom={15}
           style={{ width: "100%", height: "100%" }}
         >
