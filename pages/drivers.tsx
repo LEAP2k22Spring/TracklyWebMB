@@ -1,5 +1,4 @@
 import { Box, Button, Typography } from "@mui/material";
-import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
@@ -10,12 +9,15 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import DriversPro from "@/component/DriversPro";
 import AddIcon from "@mui/icons-material/Add";
 import AddDriver from "@/modal/AddDriver";
+import dynamic from 'next/dynamic'
+const DynamicHeader = dynamic(() => import('../component/MapRender'), {
+  ssr: false,
+})
+
 const Drivers = () => {
-  const location:any = [47.91660524732946, 106.96457125140142];
   const [isTrueDriver, setIsTrueDriver] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
   return (
     <Box sx={{ display: "flex", width: "100vw", height: "100vh" }}>
       <Box
@@ -120,7 +122,8 @@ const Drivers = () => {
                   }}
                 />
               }
-              onClick={()=>{setIsOpen(true)
+              onClick={() => {
+                setIsOpen(true);
               }}
             >
               Жолооч нэмэх
@@ -169,16 +172,7 @@ const Drivers = () => {
         </Box>
       )}
       <Box sx={isTrueDriver ? { flex: 3 } : { flex: 4.5 }}>
-        <MapContainer
-          center={{ lat: 47.91660524732946, lng: 106.96457125140142 }}
-          zoom={15}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <TileLayer
-            url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=BlX75aexttP0PZgDJuki"
-            attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-          ></TileLayer>
-        </MapContainer>
+        <DynamicHeader/>
       </Box>
       <AddDriver isOpen={isOpen} setIsOpen={setIsOpen} />
     </Box>
