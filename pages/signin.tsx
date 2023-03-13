@@ -8,10 +8,19 @@ import wave from "../assets/Wave.png";
 import classes from "../styles/Home.module.css";
 import { useRef } from "react";
 import { useRouter } from "next/router";
+import { auth, userSignIn } from "@/firebase/useFirebase";
 const Login = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const router = useRouter();
+  const emailRef: any = useRef();
+  const passwordRef: any = useRef();
+
+  async function handleSignIn() {
+    try {
+      await userSignIn(emailRef.current.value, passwordRef.current.value);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Box
@@ -57,7 +66,8 @@ const Login = () => {
           <Button
             sx={{ backgroundColor: "#000", color: "#fff" }}
             variant="contained"
-            onClick={()=>router.push("/drivers")}
+            // onClick={()=>router.push("/drivers")}
+            onClick={() => handleSignIn()}
           >
             НЭВТРЭХ
           </Button>
@@ -68,7 +78,7 @@ const Login = () => {
         sx={{
           position: "relative",
           display: { xs: "none", sm: "flex" },
-          backgroundColor: "#ffffff10"
+          backgroundColor: "#ffffff10",
         }}
       >
         <Image
