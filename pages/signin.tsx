@@ -8,7 +8,7 @@ import wave from "../assets/Wave.png";
 import classes from "../styles/Home.module.css";
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { auth, userSignIn } from "@/firebase/useFirebase";
+import { userSignIn } from "@/firebase/useFirebase";
 const Login = () => {
   const router = useRouter();
   const emailRef: any = useRef();

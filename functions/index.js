@@ -12,7 +12,6 @@ const onStaffCreate = functions.firestore
         password: "123456",
       })
       .then(function (userRecord) {
-        // See the UserRecord reference doc for the contents of userRecord.
         console.log("Successfully created new user:", userRecord.uid);
       })
       .catch(function (error) {

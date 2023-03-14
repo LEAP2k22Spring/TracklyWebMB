@@ -3,8 +3,6 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
-import profilePic from "../assets/ProfilePicture.png";
-
 const DriversPro = (data: any) => {
   return (
     <Box

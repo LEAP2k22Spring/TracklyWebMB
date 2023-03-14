@@ -1,20 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase/firebaseKey";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
   addDoc,
   collection,
-  deleteDoc,
-  doc,
   getFirestore,
   onSnapshot,
   query,
-  setDoc,
-  updateDoc,
   where,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -42,17 +34,18 @@ export const useCollection = (collectionName: string, whereQuery?: any) => {
   useEffect(() => {
     (async () => {
       const colRef = collection(db, collectionName);
-      let q=colRef;
+      let q: any = colRef;
       if (whereQuery)
         q = query(
           colRef,
           where(whereQuery.field, whereQuery.option, whereQuery.value)
         );
-      const unsubscribe = onSnapshot(q, (snapshot) => {
+      const unsubscribe = onSnapshot(q, (snapshot: { docs: any[]; }) => {
         let resultActive: any = [];
-        let resultDeactive: any = [];
-        snapshot.docs.forEach((doc) => {resultActive.push({ ...doc.data() })} );
-       
+        snapshot.docs.forEach((doc: { data: () => any; }) => {
+          resultActive.push({ ...doc.data() });
+        });
+
         setSnapData(resultActive);
       });
       return () => unsubscribe();
@@ -65,35 +58,8 @@ export const useCollection = (collectionName: string, whereQuery?: any) => {
       console.log("error", error);
     }
   };
-  const getData = () => {
-    (async () => {
-      const colRef = collection(db, collectionName);
-      const unsubscribe = onSnapshot(colRef, (snapshot) => {
-        let resultDeactive: any = [];
-        snapshot.docs.forEach((doc) => {
-          resultDeactive.push({ ...doc.data() });
-        });
-      });
-      return () => unsubscribe();
-    })();
-  };
-
   return {
     snapData,
     createUserData,
   };
 };
-// export const createUserData = async (data: any) => {
-//   try {
-//     await addDoc(collection(db, "users"), data);
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };
-// export const createUserData = async (collectionName:string, data: any) => {
-//   try {
-//     await addDoc(collection(db, collectionName), data);
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };

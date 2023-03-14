@@ -1,8 +1,7 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth, useDocument, useSort } from "../firebase/useFirebase";
+import { auth} from "../firebase/useFirebase";
 import Login from "@/pages/signin";
-import LoadingSpinner from '../component/Spinner.tsx'
 
 const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {

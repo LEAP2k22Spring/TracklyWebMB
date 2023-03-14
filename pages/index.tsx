@@ -158,8 +158,6 @@ const Drivers = () => {
             {active?.map((el: any, index: any) => (
               <DriversPro el={el} index={index} />
             ))}
-            {/* <DriversPro /> */}
-            {/* <DriversPro /> */}
           </Box>
           <Box
             color="#5C5C5C"
@@ -181,7 +179,6 @@ const Drivers = () => {
             {deActive?.map((el: any, index: any) => (
               <DriversPro el={el} index={index} />
             ))}
-            {/* <DriversPro /> */}
           </Box>
         </Box>
       )}

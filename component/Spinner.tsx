@@ -2,7 +2,7 @@ import { Backdrop, Stack } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 
-const LoadingSpinner = ({ open }) => {
+const LoadingSpinner = (open:any ) => {
   return (
     <Backdrop
       sx={{
@@ -12,9 +12,6 @@ const LoadingSpinner = ({ open }) => {
       open={open}
     >
       <Stack>
-        {/* <div style={{ marginBottom: '20px', fontSize: '18px' }}>
-            Loading...
-          </div> */}
         <CircularProgress color='inherit' />
       </Stack>
     </Backdrop>

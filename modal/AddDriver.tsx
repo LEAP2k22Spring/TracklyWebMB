@@ -13,7 +13,7 @@ const AddDriver = ({ isOpen, setIsOpen }: { isOpen: any; setIsOpen: any }) => {
     >
       <Box
         component="form"
-        onSubmit={async (event) => {
+        onSubmit={async (event:any) => {
           event.preventDefault();
           const data = new FormData(event.target);
           const lastname = data.get("lastname");
