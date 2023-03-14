@@ -8,11 +8,14 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getFirestore,
   onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useEffect, useState } from "react";
@@ -27,35 +30,30 @@ export const userSignIn = async (email: string, pass: string) => {
   try {
     const user = await signInWithEmailAndPassword(auth, email, pass);
     userId = user.user.uid;
-    console.log("userId", userId);
     alert("Sign in Success");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const useCollection = (collectionName: string) => {
-  const [snapData, setSnapDataActive] = useState<any[]>();
-  const [snapDataDeactive, setSnapDataDeactive] = useState<any[]>();
+export const useCollection = (collectionName: string, whereQuery?: any) => {
+  const [snapData, setSnapData] = useState<any[]>();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const colRef = collection(db, collectionName);
-      const unsubscribe = onSnapshot(colRef, (snapshot) => {
+      let q=colRef;
+      if (whereQuery)
+        q = query(
+          colRef,
+          where(whereQuery.field, whereQuery.option, whereQuery.value)
+        );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
         let resultActive: any = [];
         let resultDeactive: any = [];
-        snapshot.docs.forEach((doc) => {
-          if(doc.data().status === undefined){
-            
-          } else if (doc.data().status === "deavtive") {
-            resultDeactive.push({ ...doc.data() });
-          } else
-          resultActive.push({ ...doc.data() });
-        });
-        setSnapDataActive(resultActive);
-        setSnapDataDeactive(resultDeactive);
-        console.log("resultActive", resultActive);
-        console.log("resultDeactive", resultDeactive);
+        snapshot.docs.forEach((doc) => {resultActive.push({ ...doc.data() })} );
+       
+        setSnapData(resultActive);
       });
       return () => unsubscribe();
     })();
@@ -67,11 +65,22 @@ export const useCollection = (collectionName: string) => {
       console.log("error", error);
     }
   };
+  const getData = () => {
+    (async () => {
+      const colRef = collection(db, collectionName);
+      const unsubscribe = onSnapshot(colRef, (snapshot) => {
+        let resultDeactive: any = [];
+        snapshot.docs.forEach((doc) => {
+          resultDeactive.push({ ...doc.data() });
+        });
+      });
+      return () => unsubscribe();
+    })();
+  };
 
   return {
     snapData,
-    snapDataDeactive,
-    createUserData
+    createUserData,
   };
 };
 // export const createUserData = async (data: any) => {

@@ -21,7 +21,10 @@ const Drivers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { logout } = useAuth();
-  const { snapData, snapDataDeactive } = useCollection("users");
+  const { snapData } = useCollection("users");
+  
+  const deActive = snapData?.filter((el) => el.status === "deactive");
+  const active = snapData?.filter((el) => el.status === "active");
   return (
     <Box sx={{ display: "flex", width: "100vw", height: "100vh" }}>
       <Box
@@ -152,7 +155,7 @@ const Drivers = () => {
             gap={1}
             alignItems="center"
           >
-            {snapData?.map((el:any, index:any) => (
+            {active?.map((el: any, index: any) => (
               <DriversPro el={el} index={index} />
             ))}
             {/* <DriversPro /> */}
@@ -175,7 +178,7 @@ const Drivers = () => {
             gap={1}
             alignItems="center"
           >
-            {snapDataDeactive?.map((el:any, index:any) => (
+            {deActive?.map((el: any, index: any) => (
               <DriversPro el={el} index={index} />
             ))}
             {/* <DriversPro /> */}
