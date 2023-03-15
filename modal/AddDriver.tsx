@@ -26,7 +26,7 @@ const AddDriver = ({ isOpen, setIsOpen }: { isOpen: any; setIsOpen: any }) => {
             firstname: firstname,
             phonenumber: phonenumber,
             email: email,
-            status: "deavtive",
+            status: "deactive",
             role: "STAFF",
             img: "https://firebasestorage.googleapis.com/v0/b/tracklyappmb.appspot.com/o/3584.jpg?alt=media&token=1736f1f9-9be2-48dc-bac4-368f295d2dc4",
           });

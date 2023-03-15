@@ -12,6 +12,7 @@ import AddDriver from "@/modal/AddDriver";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/provider/AuthProvider";
 import { useCollection } from "@/firebase/useFirebase";
+import LoadingSpinner from "@/component/Spinner";
 const DynamicHeader = dynamic(() => import("../component/MapRender"), {
   ssr: false,
 });
@@ -21,8 +22,7 @@ const Drivers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { logout } = useAuth();
-  const { snapData } = useCollection("users");
-  
+  const { snapData, loading } = useCollection("users");
   const deActive = snapData?.filter((el) => el.status === "deactive");
   const active = snapData?.filter((el) => el.status === "active");
   return (
@@ -35,6 +35,7 @@ const Drivers = () => {
         flexDirection="column"
         justifyContent="space-between"
       >
+        {!loading && <LoadingSpinner />}
         <Box
           flex={2}
           display="flex"

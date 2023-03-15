@@ -6,10 +6,12 @@ const LoadingSpinner = (open:any ) => {
   return (
     <Backdrop
       sx={{
-        color: '#000',
+        color: '#fff',
         zIndex: (theme) => theme.zIndex.drawer + 1,
+        position:'absolute',
+        opacity:1
       }}
-      open={open}
+      open={true}
     >
       <Stack>
         <CircularProgress color='inherit' />

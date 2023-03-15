@@ -8,8 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [isUser, setUser] = useState(false);
   const [checking, setChecking] = useState(true);
   const [currentUser, setCurrentUser] = useState();
-  console.log(auth?.currentUser?.uid);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);

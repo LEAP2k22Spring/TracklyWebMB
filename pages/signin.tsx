@@ -8,8 +8,10 @@ import wave from "../assets/Wave.png";
 import classes from "../styles/Home.module.css";
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { userSignIn } from "@/firebase/useFirebase";
+import { useCollection } from "@/firebase/useFirebase";
+import LoadingSpinner from "@/component/Spinner";
 const Login = () => {
+  const {userSignIn, loading} = useCollection('users')
   const router = useRouter();
   const emailRef: any = useRef();
   const passwordRef: any = useRef();
@@ -30,6 +32,7 @@ const Login = () => {
         display: "flex",
       }}
     >
+      {!loading && <LoadingSpinner/>}
       <Box
         sx={{
           flex: 1,

@@ -1,6 +1,7 @@
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useCollection } from "@/firebase/useFirebase";
+import { RoutingMachine } from "./Routing";
 const MapRender = () => {
   const { snapData: locationData } = useCollection("location", {
     field: "status",
@@ -9,10 +10,9 @@ const MapRender = () => {
   });
   const markerIcon = L.icon({
     iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
-    iconSize: [35, 45],
-    popupAnchor: [-10, -20],
+    iconSize: [20, 30],
+    // popupAnchor: [-10, -20],
   });
-  console.log(locationData);
   return (
     
     <MapContainer
@@ -35,6 +35,7 @@ const MapRender = () => {
           </Popup>
         </Marker>
       ))}
+      {/* <RoutingMachine /> */}
     </MapContainer>
   );
 };

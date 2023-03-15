@@ -17,22 +17,13 @@ export const auth = getAuth();
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-export const userSignIn = async (email: string, pass: string) => {
-  let userId = "";
-  try {
-    const user = await signInWithEmailAndPassword(auth, email, pass);
-    userId = user.user.uid;
-    alert("Sign in Success");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const useCollection = (collectionName: string, whereQuery?: any) => {
   const [snapData, setSnapData] = useState<any[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
+      setLoading(false);
       const colRef = collection(db, collectionName);
       let q: any = colRef;
       if (whereQuery)
@@ -40,26 +31,43 @@ export const useCollection = (collectionName: string, whereQuery?: any) => {
           colRef,
           where(whereQuery.field, whereQuery.option, whereQuery.value)
         );
-      const unsubscribe = onSnapshot(q, (snapshot: { docs: any[]; }) => {
+      const unsubscribe = onSnapshot(q, (snapshot: { docs: any[] }) => {
         let resultActive: any = [];
-        snapshot.docs.forEach((doc: { data: () => any; }) => {
+        snapshot.docs.forEach((doc: { data: () => any }) => {
           resultActive.push({ ...doc.data() });
         });
 
         setSnapData(resultActive);
+        setLoading(true);
       });
       return () => unsubscribe();
     })();
   }, [collectionName]);
   const createUserData = async (data: any) => {
+    setLoading(false);
     try {
-      await addDoc(collection(db, "users"), data);
+      await addDoc(collection(db, collectionName), data);
+      setLoading(true);
     } catch (error) {
       console.log("error", error);
+    }
+  };
+  const userSignIn = async (email: string, pass: string) => {
+    setLoading(false);
+    let userId = "";
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, pass);
+      userId = user.user.uid;
+      setLoading(true);
+      alert("Sign in Success");
+    } catch (error) {
+      console.log(error);
     }
   };
   return {
     snapData,
     createUserData,
+    loading,
+    userSignIn,
   };
 };
